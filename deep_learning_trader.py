@@ -19,7 +19,7 @@ warnings.filterwarnings('ignore')
 load_dotenv()
 
 class DeepLearningTrader:
-    # FIX 1: Rename __init__ (missing one underscore)
+    # FIX 1: Rename init (missing one underscore) -> __init__
     def __init__(self, starting_balance=100.0):
         self.session = requests.Session()
         self.session.headers.update({
@@ -27,7 +27,7 @@ class DeepLearningTrader:
         })
         
         # REAL TRADING PARAMETERS
-        # FIX 2: Correct variable name
+        # FIX 2: Correct variable name -> self.paper_balance
         self.paper_balance = starting_balance
         self.initial_balance = starting_balance
         self.trade_size = 20.0  # $20 per trade
@@ -55,18 +55,18 @@ class DeepLearningTrader:
             'sharpe_ratio': 0.0
         }
 
-        # FIX 4: Use correct variable name
+        # FIX 4: Use correct variable name -> self.paper_balance
         print(f"🧠 DEEP LEARNING TRADING BOT")
         print(f"💵 Starting Balance: ${self.paper_balance:.2f}")
         print(f"📊 Trade Size: ${self.trade_size:.2f}")
         print(f"🎯 AI Confidence: {self.min_confidence*100}% minimum")
         print(f"🚀 Real Deep Learning Models Active")
 
-    # FIX 5: Use standard Python snake_case for method name and variable
+    # FIX 5: Use standard Python snake_case for method name -> create_lstm_model
     def create_lstm_model(self, input_shape):
         """Create advanced LSTM model for price prediction"""
         model = Sequential([
-            # FIX 6: Correct argument name
+            # FIX 6: Correct argument name -> return_sequences, input_shape
             Bidirectional(LSTM(128, return_sequences=True, input_shape=input_shape)),
             Dropout(0.3),
             LSTM(64, return_sequences=True),
@@ -86,11 +86,11 @@ class DeepLearningTrader:
         )
         return model
 
-    # FIX 7: Use standard Python snake_case for method name and variable
+    # FIX 7: Use standard Python snake_case for method name and variable -> create_cnn_lstm_model, input_shape
     def create_cnn_lstm_model(self, input_shape):
         """Create CNN-LSTM hybrid model for trend classification"""
         model = Sequential([
-            # FIX 8: Correct argument name
+            # FIX 8: Correct argument name -> input_shape
             Conv1D(64, 3, activation='relu', input_shape=input_shape),
             MaxPooling1D(2),
             Conv1D(32, 3, activation='relu'),
@@ -110,11 +110,11 @@ class DeepLearningTrader:
         )
         return model
 
-    # FIX 9: Use standard Python snake_case for method name and variable
+    # FIX 9: Use standard Python snake_case for method name and variable -> get_historical_data, coin_id
     def get_historical_data(self, coin_id, days=60):
         """Get extensive historical data for deep learning"""
         try:
-            # FIX 10: Correct variable name
+            # FIX 10: Correct variable name -> coin_id
             url = f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart"
             params = {
                 'vs_currency': 'usd',
@@ -133,7 +133,7 @@ class DeepLearningTrader:
             print(f"❌ Historical data error: {e}")
             return [], []
 
-    # FIX 11: Use standard Python snake_case for method name
+    # FIX 11: Use standard Python snake_case for method name -> calculate_technical_features
     def calculate_technical_features(self, prices, volumes):
         """Calculate advanced technical indicators for deep learning"""
         if len(prices) < 50:
@@ -161,20 +161,20 @@ class DeepLearningTrader:
         
         # Volume features
         df['volume_sma'] = df['volume'].rolling(window=20).mean()
-        # FIX 12: Correct variable name
+        # FIX 12: Correct variable name -> df['volume_sma']
         df['volume_ratio'] = df['volume'] / df['volume_sma']
         
         # Price position
-        # FIX 13: Correct variable name
+        # FIX 13: Correct variable name -> df['sma_20']
         df['price_vs_sma'] = df['price'] / df['sma_20'] - 1
-        # FIX 14: Correct variable name
+        # FIX 14: Correct variable name -> df['sma_20']
         df['sma_cross'] = (df['sma_20'] > df['sma_50']).astype(int)
         
         # MACD
-        # FIX 15: Correct variable name
+        # FIX 15: Correct variable name -> df['ema_12'], df['ema_26']
         df['macd'] = df['ema_12'] - df['ema_26']
         df['macd_signal'] = df['macd'].ewm(span=9, adjust=False).mean() # Adjust=False is common for EMA
-        # FIX 16: Correct variable name
+        # FIX 16: Correct variable name -> df['macd_signal']
         df['macd_histogram'] = df['macd'] - df['macd_signal']
         
         # Remove NaN values
@@ -190,8 +190,8 @@ class DeepLearningTrader:
         # FIX 17: Return only values
         return df[feature_columns].values
 
-    # FIX 18: Use standard Python snake_case for method name
-    def prepare_deeplearning_data(self, features, lookback=30):
+    # FIX 18: Use standard Python snake_case for method name -> prepare_deep_learning_data
+    def prepare_deep_learning_data(self, features, lookback=30):
         """Prepare data for deep learning models"""
         X, y = [], []
         
@@ -209,28 +209,28 @@ class DeepLearningTrader:
         
         return np.array(X), np.array(y)
 
-    # FIX 19: Use standard Python snake_case for method name and variable
-    def train_deeplearning_models(self, coin_id):
+    # FIX 19: Use standard Python snake_case for method name and variable -> train_deep_learning_models
+    def train_deep_learning_models(self, coin_id):
         """Train deep learning models on historical data"""
         print(f"🧠 Training Deep Learning Models for {coin_id}...")
         
         try:
-            # FIX 20, 21: Correct method name and variable name
+            # FIX 20, 21: Correct method name and variable name -> get_historical_data, coin_id
             prices, volumes = self.get_historical_data(coin_id, 90)
             if len(prices) < 100:
                 print("❌ Not enough data for training.")
                 return False
                 
             # Calculate features
-            # FIX 22: Correct method name
+            # FIX 22: Correct method name -> calculate_technical_features
             features = self.calculate_technical_features(prices, volumes)
             if features is None:
                 print("❌ Features calculation failed.")
                 return False
                 
             # Prepare data
-            # FIX 23: Correct method name
-            X, y = self.prepare_deeplearning_data(features)
+            # FIX 23: Correct method name -> prepare_deep_learning_data
+            X, y = self.prepare_deep_learning_data(features)
             
             if len(X) < 50:
                 print("❌ Not enough feature sequences for training.")
@@ -246,16 +246,16 @@ class DeepLearningTrader:
             X_test_reshaped = X_test.reshape(-1, X_test.shape[-1])
             
             self.scaler.fit(X_train_reshaped)
-            # FIX 24: Use correct variable names
+            # FIX 24: Use correct variable names -> X_train, X_test, X_train_reshaped, X_test_reshaped
             X_train_scaled = self.scaler.transform(X_train_reshaped).reshape(X_train.shape)
             X_test_scaled = self.scaler.transform(X_test_reshaped).reshape(X_test.shape)
             
             # Create and train LSTM model
-            # FIX 25: Correct method name and variable name
+            # FIX 25: Correct method name and variable name -> self.price_predictor, create_lstm_model, X_train
             self.price_predictor = self.create_lstm_model((X_train.shape[1], X_train.shape[2]))
             
             # Train model
-            # FIX 26, 27: Use correct variable names
+            # FIX 26, 27: Use correct variable names -> X_train_scaled, y_train, X_test_scaled, y_test
             history = self.price_predictor.fit(
                 X_train_scaled, y_train,
                 epochs=50,
@@ -267,7 +267,7 @@ class DeepLearningTrader:
             
             # Evaluate model
             train_accuracy = history.history['accuracy'][-1]
-            # FIX 28: Correct dictionary key
+            # FIX 28: Correct dictionary key -> val_accuracy
             val_accuracy = history.history['val_accuracy'][-1]
             
             print(f"✅ Model Trained - Train Accuracy: {train_accuracy:.3f}, Val Accuracy: {val_accuracy:.3f}")
@@ -278,22 +278,22 @@ class DeepLearningTrader:
             print(f"❌ Model training failed: {e}")
             return False
 
-    # FIX 29: Use standard Python snake_case for method name and variable
-    def deeplearning_prediction(self, coin_data):
+    # FIX 29: Use standard Python snake_case for method name and variable -> deep_learning_prediction
+    def deep_learning_prediction(self, coin_data):
         """Make prediction using deep learning model"""
         try:
-            # FIX 30: Correct variable name
+            # FIX 30: Correct variable name -> coin_id
             coin_id = coin_data['id']
             current_price = coin_data['current_price']
             
             # Get recent data for prediction
-            # FIX 31: Correct method name
+            # FIX 31: Correct method name -> get_historical_data
             prices, volumes = self.get_historical_data(coin_id, 30) # Increase days for features to be valid
             if len(prices) < 50: # Check is now necessary
                 return None
                 
             # Calculate features
-            # FIX 32: Correct method name
+            # FIX 32: Correct method name -> calculate_technical_features
             features = self.calculate_technical_features(prices, volumes)
             if features is None:
                 return None
@@ -308,19 +308,19 @@ class DeepLearningTrader:
             recent_features_reshaped = recent_features_scaled.reshape(1, lookback, -1)
             
             # Make prediction
-            # FIX 33: Correct variable name
+            # FIX 33: Correct variable name -> self.price_predictor
             if self.price_predictor:
+                # FIX 34: Correct variable name -> recent_features_reshaped
                 prediction = self.price_predictor.predict(recent_features_reshaped, verbose=0)
                 confidence = np.max(prediction[0])
-                # FIX 34: Correct variable name
                 predicted_class = np.argmax(prediction[0])
                 
                 # Interpret prediction
-                # FIX 35, 36: Correct variable names
+                # FIX 35, 36: Correct variable names -> predicted_class, self.min_confidence
                 if predicted_class == 0 and confidence > self.min_confidence:  # BUY
                     signal_type = 'BUY'
                     reason = f"🧠 DL Prediction: BUY ({confidence*100:.1f}% confidence)"
-                # FIX 37: Correct variable name
+                # FIX 37: Correct variable name -> predicted_class
                 elif predicted_class == 1 and confidence > self.min_confidence:  # SELL
                     signal_type = 'SELL' 
                     reason = f"🧠 DL Prediction: SELL ({confidence*100:.1f}% confidence)"
@@ -334,9 +334,9 @@ class DeepLearningTrader:
                     'type': signal_type,
                     'confidence': confidence,
                     'price': current_price,
-                    # FIX 38: Correct dictionary key
+                    # FIX 38: Correct dictionary key -> price_change_percentage_24h
                     'change_24h': coin_data.get('price_change_percentage_24h', 0),
-                    # FIX 39: Correct dictionary key
+                    # FIX 39: Correct dictionary key -> total_volume
                     'volume': coin_data.get('total_volume', 0),
                     'reason': reason,
                     'model': 'LSTM',
@@ -348,8 +348,8 @@ class DeepLearningTrader:
             
         return None
 
-    # FIX 40: Use standard Python snake_case for method name
-    def get_deeplearning_signals(self):
+    # FIX 40: Use standard Python snake_case for method name -> get_deep_learning_signals
+    def get_deep_learning_signals(self):
         """Get signals from deep learning models"""
         print("🧠 Deep Learning AI Scanning Markets...")
         
@@ -370,18 +370,18 @@ class DeepLearningTrader:
             for coin in coins:
                 # Filter quality coins
                 if (coin.get('market_cap', 0) > 1000000000 and  # $1B+ market cap
-                    # FIX 41: Correct dictionary key
+                    # FIX 41: Correct dictionary key -> total_volume
                     coin.get('total_volume', 0) > 50000000 and   # $50M+ volume
                     5.0 < coin.get('current_price', 0) < 1000.0): # Reasonable price
                     
                     # Train model if not trained
                     if not self.model_trained:
-                        # FIX 42: Correct method name
-                        self.train_deeplearning_models(coin['id'])
+                        # FIX 42: Correct method name -> train_deep_learning_models
+                        self.train_deep_learning_models(coin['id'])
                     
                     # Get deep learning prediction
-                    # FIX 43: Correct method name
-                    signal = self.deeplearning_prediction(coin)
+                    # FIX 43: Correct method name -> deep_learning_prediction
+                    signal = self.deep_learning_prediction(coin)
                     if signal and signal['confidence'] >= self.min_confidence:
                         signals.append(signal)
             
@@ -391,10 +391,10 @@ class DeepLearningTrader:
             print(f"❌ DL signal error: {e}")
             return []
 
-    # FIX 44: Use standard Python snake_case for method name
+    # FIX 44: Use standard Python snake_case for method name -> execute_dl_trade
     def execute_dl_trade(self, signal):
         """Execute deep learning recommended trade"""
-        # FIX 45: Correct variable name
+        # FIX 45: Correct variable name -> self.trade_size
         if self.paper_balance < self.trade_size:
             print("❌ INSUFFICIENT BALANCE")
             return False
@@ -403,33 +403,33 @@ class DeepLearningTrader:
         side = signal['type']
         current_price = signal['price']
         
-        # FIX 46: Correct variable name
+        # FIX 46: Correct variable name -> self.trade_size
         quantity = self.trade_size / current_price
         
         print(f"🧠 DEEP LEARNING TRADE EXECUTED:")
         print(f"   {side} {quantity:.6f} {symbol} @ ${current_price:.4f}")
-        # FIX 47: Correct variable name
+        # FIX 47: Correct variable name -> self.trade_size
         print(f"   Trade Value: ${self.trade_size:.2f}")
         print(f"   🤖 AI Confidence: {signal['confidence']*100:.1f}%")
         print(f"   🧠 Model: {signal['model']}")
         print(f"   💡 Signal: {signal['reason']}")
         
         # Deduct from balance
-        # FIX 48: Correct variable name
+        # FIX 48: Correct variable name -> self.trade_size
         self.paper_balance -= self.trade_size
         
         # Track trade
         trade_id = f"{symbol}{int(time.time())}"
-        # FIX 49: Correct variable name
+        # FIX 49: Correct variable name -> self.open_trades
         self.open_trades[trade_id] = {
             'symbol': symbol,
             'coin_id': signal['coin_id'],
             'name': signal['name'],
             'side': side,
-            # FIX 50: Correct variable name
+            # FIX 50: Correct variable name -> entry_price
             'entry_price': current_price,
             'quantity': quantity,
-            # FIX 51: Correct variable name
+            # FIX 51: Correct variable name -> trade_value
             'trade_value': self.trade_size,
             'entry_time': datetime.now(),
             'status': 'OPEN',
@@ -442,27 +442,27 @@ class DeepLearningTrader:
         self.performance['total_trades'] += 1
         return True
 
-    # FIX 52: Use standard Python snake_case for method name
+    # FIX 52: Use standard Python snake_case for method name -> update_dl_trades
     def update_dl_trades(self):
         """Update deep learning trades with smart exits"""
-        # FIX 53: Correct variable name
+        # FIX 53: Correct variable name -> self.open_trades
         if not self.open_trades:
             return
             
         print(f"\n📊 DEEP LEARNING TRADES:")
         print("-" * 70)
         
-        # FIX 54: Correct variable name
+        # FIX 54: Correct variable name -> self.open_trades
         for trade_id, trade in list(self.open_trades.items()):
             if trade['status'] == 'OPEN':
                 try:
                     url = f"https://api.coingecko.com/api/v3/simple/price"
-                    # FIX 55: Correct variable name
+                    # FIX 55: Correct variable name -> trade['coin_id']
                     params = {'ids': trade['coin_id'], 'vs_currencies': 'usd'}
                     response = self.session.get(url, params=params)
                     current_price = response.json()[trade['coin_id']]['usd']
                     
-                    # FIX 56, 57: Correct variable names
+                    # FIX 56, 57: Correct variable names -> entry_price, quantity
                     entry_price = trade['entry_price']
                     quantity = trade['quantity']
                     
@@ -473,40 +473,40 @@ class DeepLearningTrader:
                         pl_percent = ((entry_price - current_price) / entry_price) * 100
                         pl_usd = (entry_price - current_price) * quantity
                     
-                    # FIX 58, 59, 60: Correct variable names
+                    # FIX 58, 59, 60: Correct variable names -> current_price, pl_percent, pl_usd
                     trade['current_price'] = current_price
                     trade['pl_percent'] = pl_percent
                     trade['pl_usd'] = pl_usd
                     
-                    # FIX 61: Correct variable name and method call
+                    # FIX 61: Correct variable name and method call -> entry_time.total_seconds()
                     time_in_trade = (datetime.now() - trade['entry_time']).total_seconds() / 60
                     
-                    # FIX 62: Correct variable name
+                    # FIX 62: Correct variable name -> pl_usd
                     status_icon = "🟢" if pl_usd > 0 else "🔴"
                     print(f"{status_icon} {trade['side']} {trade['symbol']}")
                     print(f"   🤖 AI Confidence: {trade['ai_confidence']*100:.1f}%")
-                    # FIX 63, 64: Correct variable names
+                    # FIX 63, 64: Correct variable names -> entry_price, current_price
                     print(f"   Entry: ${entry_price:.4f} | Current: ${current_price:.4f}")
-                    # FIX 65, 66: Correct variable names
+                    # FIX 65, 66: Correct variable names -> pl_percent, pl_usd
                     print(f"   P/L: {pl_percent:+.2f}% (${pl_usd:+.2f})")
                     
                     # Smart AI exits
                     if pl_percent >= 15.0:
                         print(f"   🎯 AI PROFIT: +{pl_percent:.1f}%")
-                        # FIX 67: Correct method name and variable name
+                        # FIX 67: Correct method name and variable name -> close_dl_trade
                         self.close_dl_trade(trade_id)
                     elif pl_percent <= -4.0:
                         print(f"   🛑 AI STOP LOSS: {pl_percent:.1f}%")
-                        # FIX 68: Correct method name and variable name
+                        # FIX 68: Correct method name and variable name -> close_dl_trade
                         self.close_dl_trade(trade_id)
-                    # FIX 69: Correct variable name
+                    # FIX 69: Correct variable name -> time_in_trade
                     elif time_in_trade > 20:
-                        # FIX 70: Correct variable name
+                        # FIX 70: Correct variable name -> time_in_trade
                         print(f"   ⏰ AI TIME EXIT: {time_in_trade:.0f}m")
-                        # FIX 71: Correct method name and variable name
+                        # FIX 71: Correct method name and variable name -> close_dl_trade
                         self.close_dl_trade(trade_id)
                     else:
-                        # FIX 72: Correct variable name
+                        # FIX 72: Correct variable name -> time_in_trade
                         print(f"   🤖 AI HOLDING: {time_in_trade:.0f}m")
                     
                     print()
@@ -514,21 +514,21 @@ class DeepLearningTrader:
                 except Exception as e:
                     print(f"❌ Error updating {trade['symbol']}: {e}")
 
-    # FIX 73: Use standard Python snake_case for method name
+    # FIX 73: Use standard Python snake_case for method name -> close_dl_trade
     def close_dl_trade(self, trade_id):
         """Close deep learning trade"""
-        # FIX 74: Correct variable name
+        # FIX 74: Correct variable name -> self.open_trades
         trade = self.open_trades[trade_id]
-        # FIX 75: Correct dictionary key
+        # FIX 75: Correct dictionary key -> pl_usd
         final_pl = trade.get('pl_usd', 0)
 
-        # FIX 76, 77: Correct variable name and dictionary key
+        # FIX 76, 77: Correct variable name and dictionary key -> self.paper_balance, trade_value
         self.paper_balance += trade['trade_value'] + final_pl
 
         if final_pl > 0:
             trade['result'] = 'WIN'
             self.performance['wins'] += 1
-            # FIX 78: Correct dictionary key
+            # FIX 78: Correct dictionary key -> total_profit
             self.performance['total_profit'] += final_pl
         else:
             trade['result'] = 'LOSS'
@@ -536,33 +536,33 @@ class DeepLearningTrader:
             
         trade['status'] = 'CLOSED'
         trade['exit_time'] = datetime.now()
-        # FIX 79: Correct dictionary key
+        # FIX 79: Correct dictionary key -> final_pl
         trade['final_pl'] = final_pl
         
         # Update performance metrics
         total_trades = self.performance['wins'] + self.performance['losses']
         if total_trades > 0:
-            # FIX 80: Correct dictionary key
+            # FIX 80: Correct dictionary key -> win_rate
             self.performance['win_rate'] = self.performance['wins'] / total_trades
         
         self.trade_history.append(trade.copy())
-        # FIX 81: Correct variable name
+        # FIX 81: Correct variable name -> trade_id
         del self.open_trades[trade_id]
         
-        # FIX 82, 83: Correct variable name
+        # FIX 82, 83: Correct variable name -> final_pl
         result_icon = "💰 AI WIN" if final_pl > 0 else "💸 AI LOSS"
         print(f"   {result_icon} | P/L: ${final_pl:+.2f}")
-        # FIX 84: Correct variable name
+        # FIX 84: Correct variable name -> self.paper_balance
         print(f"   📈 New Balance: ${self.paper_balance:.2f}")
 
-    # FIX 85: Use standard Python snake_case for method name
+    # FIX 85: Use standard Python snake_case for method name -> display_dl_performance
     def display_dl_performance(self):
         """Display deep learning performance"""
-        # FIX 86: Correct variable names
+        # FIX 86: Correct variable names -> self.paper_balance, self.initial_balance
         total_pl = self.paper_balance - self.initial_balance
         
         print(f"\n🧠 DEEP LEARNING PERFORMANCE:")
-        # FIX 87, 88, 89: Correct variable names and dictionary keys
+        # FIX 87, 88, 89: Correct variable names and dictionary keys -> self.paper_balance, total_pl, self.initial_balance
         print(f"   💰 Balance: ${self.paper_balance:.2f}")
         print(f"   📈 Total P/L: ${total_pl:+.2f}")
         print(f"   📊 Return: {(total_pl/self.initial_balance)*100:+.1f}%")
@@ -570,11 +570,11 @@ class DeepLearningTrader:
         print(f"   📊 Total Trades: {self.performance['total_trades']}")
         print(f"   ✅ Wins: {self.performance['wins']} | ❌ Losses: {self.performance['losses']}")
         print(f"   💵 Total Profit: ${self.performance['total_profit']:.2f}")
-        # FIX 90: Correct variable name
+        # FIX 90: Correct variable name -> self.open_trades
         print(f"   🔥 Open Trades: {len(self.open_trades)}")
         print(f"   🧠 Model Status: {'TRAINED' if self.model_trained else 'TRAINING'}")
 
-    # FIX 91: Use standard Python snake_case for method name
+    # FIX 91: Use standard Python snake_case for method name -> display_dl_signals
     def display_dl_signals(self, signals):
         """Display deep learning signals"""
         if not signals:
@@ -583,19 +583,20 @@ class DeepLearningTrader:
             
         print(f"\n🎯 DEEP LEARNING SIGNALS:")
         print("=" * 80)
-        # FIX 92: Correct column name
+        # FIX 92: Correct column name -> 24H%
         print(f"{'#':2} {'SYMBOL':12} {'TYPE':6} {'CONFIDENCE':10} {'MODEL':8} {'24H%':6}")
         print("-" * 80)
         
         for i, signal in enumerate(signals, 1):
-            # FIX 93: Correct dictionary key
+            # FIX 93: Correct dictionary key -> change_24h
             print(f"{i:2} {signal['symbol']:12} {signal['type']:6} {signal['confidence']*100:9.1f}% {signal['model']:8} {signal['change_24h']:5.1f}%")
             print(f"    🧠 {signal['reason']}")
             print(f"    💎 {signal['name']}")
             print()
 
 # Flask app for Replit
-# FIX 94: Correct variable name
+
+# FIX 94: Correct variable name -> __name__
 app = Flask(__name__)
 trader = None
 
@@ -628,10 +629,11 @@ def status():
         }
     return {"status": "starting"}
 
-# FIX 99: Use standard Python snake_case for method name
+# FIX 99: Use standard Python snake_case for method name -> run_dl_trader
 def run_dl_trader():
     """Run the deep learning trader"""
     global trader
+    # Initializing the class calls __init__ correctly now
     trader = DeepLearningTrader(starting_balance=100.0)
     
     print("🚀 DEEP LEARNING TRADER STARTED")
@@ -649,31 +651,31 @@ def run_dl_trader():
             print(f"{'='*70}")
             
             # Update trades
-            # FIX 100: Correct method name
+            # FIX 100: Correct method name -> update_dl_trades
             trader.update_dl_trades()
             
             # Get DL signals
-            # FIX 101, 102: Correct method name and variable name
-            signals = trader.get_deeplearning_signals()
+            # FIX 101, 102: Correct method name and variable name -> get_deep_learning_signals
+            signals = trader.get_deep_learning_signals()
             trader.display_dl_signals(signals)
             
             # Execute trades
-            # FIX 103, 104, 105: Correct variable names
+            # FIX 103, 104, 105: Correct variable names -> trader.paper_balance, trader.trade_size, trader.open_trades
             if (signals and 
                 trader.paper_balance >= trader.trade_size and 
                 len(trader.open_trades) < 2):
                 
                 best_signal = signals[0]
-                # FIX 106: Correct variable name
+                # FIX 106: Correct variable name -> best_signal, trader.min_confidence
                 if best_signal['confidence'] >= trader.min_confidence:
                     print(f"🤖 EXECUTING DL TRADE: {best_signal['type']} {best_signal['symbol']}")
-                    # FIX 107: Correct method name
+                    # FIX 107: Correct method name -> execute_dl_trade
                     success = trader.execute_dl_trade(best_signal)
                     if success:
                         print("✅ DL TRADE EXECUTED!")
             
             # Display performance
-            # FIX 108: Correct method name
+            # FIX 108: Correct method name -> display_dl_performance
             trader.display_dl_performance()
             
             print(f"\n⏰ Next DL analysis in 3 minutes...")
@@ -683,7 +685,7 @@ def run_dl_trader():
             print(f"❌ DL cycle error: {e}")
             time.sleep(60)
 
-# FIX 109, 110: Correct variable names
+# FIX 109, 110: Correct variable names -> __name__, run_dl_trader, dl_thread
 if __name__ == "__main__":
     # Start DL trader in background
     dl_thread = threading.Thread(target=run_dl_trader, daemon=True)
